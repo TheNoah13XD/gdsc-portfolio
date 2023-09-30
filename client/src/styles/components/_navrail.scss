@@ -1,0 +1,101 @@
+$nav-width: 80px;
+
+.rail {
+    width: $nav-width;
+    @include breakpoint('lg') {
+        $nav-width: 72px;
+        width: $nav-width;
+    }
+    
+    @include breakpoint('xl') {
+        $nav-width: 80px;
+        width: $nav-width;
+    }
+    height: 100%;
+    z-index: 9999;
+    transition: all 200ms cubic-bezier(0.2, 0, 0, 1);
+    background-color: var(--md-sys-color-surface);
+    box-shadow: $elevation-0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .rail-content {
+        @mixin item {
+            width: 100%;
+            padding: 6px 0;
+            display: flex;
+            background-color: transparent;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            transition: all 200ms cubic-bezier(0.2, 0, 0, 1);
+            .indicator {
+                width: 56px;
+                height: 32px;
+                border-radius: $large-border-radius;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 200ms cubic-bezier(0.2, 0, 0, 1);
+                .icon {
+                    font-size: 24px;
+                    user-select: none;
+                }
+            }
+            .label {
+                font-size: $type-label-medium;
+                font-weight: $medium-fw;
+                line-height: 16px;
+                padding: 4px 0;
+            }
+        }
+        .destination-item {
+            @include item;
+            .indicator {
+                background-color: transparent;
+                .icon {
+                    color: var(--md-sys-color-on-surface-variant);
+                }
+            }
+            .label {
+                color: var(--md-sys-color-on-surface-variant);
+            }
+            &:hover {
+                .indicator {
+                    background-color: rgba(29, 27, 32, 8%);
+                }
+            }
+            &:active {
+                .indicator {
+                    background-color: rgba(29, 27, 32, 12%);
+                }
+            }
+        }
+        .destination-active {
+            @include item;
+            .indicator {
+                background-color: var(--md-sys-color-secondary-container);
+                .icon {
+                    color: var(--md-sys-color-on-secondary-container);
+                }
+            }
+            .label {
+                color: var(--md-sys-color-on-surface);
+            }
+            &:hover {
+                .indicator {
+                    background-color: color-mix(in srgb, var(--md-sys-color-secondary-container), #1D192B 8%);
+                }
+            }
+            &:active {
+                .indicator {
+                    background-color: color-mix(in srgb, var(--md-sys-color-secondary-container), #1D192B 12%);
+                }
+            }
+        }
+    }
+}

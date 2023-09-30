@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "works",
+  "info": {
+    "singularName": "work",
+    "pluralName": "works",
+    "displayName": "Work",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "link": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "brief": {
+      "type": "text"
+    },
+    "thumbnail": {
+      "type": "text"
+    }
+  }
+}

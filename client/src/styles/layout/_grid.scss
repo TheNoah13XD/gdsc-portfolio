@@ -1,0 +1,89 @@
+$grid-configurations: (
+  "xs": (container-width: 0, columns: 4, gap: 16px, margin: 16px),
+  "sm": (container-width: 600px, columns: 8, gap: 16px, margin: 32px),
+  "md": (container-width: 905px, columns: 12, gap: 12px, margin: 32px),
+  "fr": (container-width: 1240px, columns: 12, gap: 24px, margin: 48px),
+  "lg": (container-width: 1440px, columns: 12, gap: 24px, margin: 48px),
+  "xl": (container-width: 1920px, columns: 12, gap: 24px, margin: 48px),
+  "xxl": (container-width: 2560px, columns: 12, gap: 24px, margin: 48px)
+);
+
+@mixin generate-grid($columns, $gap, $margin) {
+  display: grid;
+  grid-template-columns: repeat(#{$columns}, 1fr);
+  gap: $gap;
+  margin: 0 $margin;
+}
+
+@mixin apply-grid($breakpoint, $config) {
+  @media screen and (min-width: map-get($breakpoints, $breakpoint)) {
+    @include generate-grid(map-get($config, "columns"), map-get($config, "gap"), map-get($config, "margin"));
+  }
+}
+
+.grid-container {
+  @each $breakpoint, $config in $grid-configurations {
+    @include apply-grid($breakpoint, $config);
+
+    .col {
+      $columns: map-get($config, "columns");
+      $gap: map-get($config, "gap");
+      $margin: map-get($config, "margin");
+
+      @for $i from 1 through $columns {
+        &.col-span-#{$i} {
+          grid-column-end: span #{$i};
+        }
+
+        &.col-start-#{$i} {
+          grid-column-start: #{$i};
+        }
+      }
+
+      &.col-extra-width {
+        @media screen and (min-width: map-get($breakpoints, $breakpoint)) {
+          margin-right: -#{$gap};
+          width: calc(100% + #{$gap});
+        }
+      }
+
+      &.col-extra-start,
+      &.col-extra-end {
+        @media screen and (min-width: map-get($breakpoints, $breakpoint)) {
+          margin-left: calc(-1 * #{$gap});
+        }
+      }
+
+      &.col-extra-start-margin,
+      &.col-extra-end-margin {
+        @media screen and (min-width: map-get($breakpoints, $breakpoint)) {
+          margin-left: calc(-1 * #{$margin});
+        }
+      }
+    }
+  }
+}
+
+@each $breakpoint, $config in $grid-configurations {
+  $columns: map-get($config, "columns");
+  $gap: map-get($config, "gap");
+  $margin: map-get($config, "margin");
+
+  @media screen and (min-width: map-get($breakpoints, $breakpoint)) {
+    $col: math.div((map-get($config, "container-width") - 72px - ($margin * 2) - ($gap * ($columns - 1))), $columns);
+
+    @for $i from 1 through $columns {
+      .grid-column-width-#{$i} {
+        width: $col * $i;
+      }
+
+      .grid-gap-#{$i} {
+        margin-left: $gap * $i;
+      }
+
+      .grid-margin-#{$i} {
+        margin-left: $margin * $i;
+      }
+    }
+  }
+}

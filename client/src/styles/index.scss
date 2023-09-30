@@ -1,0 +1,981 @@
+@use "sass:math";
+
+// base & variables
+@import 'base/type';
+@import 'base/variables';
+@import 'base/base';
+
+// layout
+@import 'layout/breakpoints';
+@import 'layout/grid';
+
+// colors
+@import url(./tokens/tokens.css);
+@import url(./tokens/theme.light.css);
+// @import url(./tokens/theme.dark.css) (prefers-color-scheme: dark);
+@import 'themes/colors';
+
+// components
+@import 'components/navrail';
+@import 'components/button';
+@import 'components/iconbtn';
+
+// utilities
+@import 'base/utilities';
+// @import 'layout/utility-layout';
+
+// changes & additions
+.container {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    padding: 56px 0;
+    overflow: hidden;
+}
+
+.rail {
+    background-color: var(--md-sys-color-primary-container);
+    .rail-content {
+        .destination-item {
+            .indicator {
+                .icon {
+                    color: var(--md-sys-color-on-surface);
+                }
+            }
+            .label {
+                color: var(--md-sys-color-on-surface);
+                font-weight: $bold-fw;
+            }
+        }
+        .destination-active {
+            .indicator {
+                background-color: var(--md-sys-color-on-primary-container);
+                .icon {
+                    color: #fff;
+                }
+            }
+            .label {
+                color: var(--md-sys-color-on-primary-container);
+                font-weight: $bold-fw;
+            }
+            &:hover {
+                .indicator {
+                    background-color: color-mix(in srgb, var(--md-sys-color-on-primary-container), #fff 8%);
+                }
+            }
+            &:active {
+                .indicator {
+                    background-color: color-mix(in srgb, var(--md-sys-color-on-primary-container), #fff 12%);
+                }
+            }
+        }
+    }
+}
+
+.scenario {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: ($base-padding * 6) 0;
+    @include breakpoint('lg') {
+        padding: ($base-padding * 12) 0;
+    }
+    border-radius: 0 $large-border-radius $large-border-radius 0;
+    background-color: var(--md-ref-palette-primary95);
+}
+
+.socials {
+    display: flex;
+    gap: $base-padding * 3;
+    margin-top: $base-margin * 6;
+    @include breakpoint('lg') {
+        margin-top: $base-margin * 6;
+    }
+    @include breakpoint('xl') {
+        margin-top: $base-margin * 12;
+    }
+}
+
+.context {
+    display: inline-block;
+    position: relative;
+    width: 84px;
+    height: 428px;
+    @include breakpoint('fr') {
+        width: 70px;
+        height: 360px;
+    }
+    @include breakpoint('lg') {
+        width: 84px;
+        height: 428px;
+    }
+    @include breakpoint('xl') {
+        width: 100px;
+        height: 510px;
+    }
+    background-color: var(--md-sys-color-on-primary-fixed-variant);
+    .context-text {
+        position: absolute;
+        left: 70%;
+        bottom: 0;
+        transform: translate(0, 0) rotate(-90deg);
+        transform-origin: left bottom;
+        white-space: nowrap;
+        font-size: 103px;
+        @include breakpoint('fr') {
+            left: 70%;
+            font-size: 91px;
+        }
+        @include breakpoint('lg') {
+            left: 70%;
+            font-size: 103px;
+        }
+        @include breakpoint('xl') {
+            left: 65%;
+            font-size: 131px;
+        }
+        letter-spacing: -6px;
+        font-weight: $black-fw;
+        color: var(--md-sys-color-background);
+    }
+}
+
+@each $breakpoint, $config in $grid-configurations {
+    $columns: map-get($config, "columns");
+    $gap: map-get($config, "gap");
+    $margin: map-get($config, "margin");
+    $container-width: map-get($config, "container-width");
+
+    $col: math.div((($container-width - 72px) - ($margin * 2) - ($gap * ($columns - 1))), $columns);
+
+    @media screen and (min-width: map-get($breakpoints, $breakpoint)) {
+        .scene {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            padding-left: $margin;
+            border-radius: 0 $x-large-border-radius $x-large-border-radius 0;
+            background-color: var(--md-sys-color-surface);
+            z-index: 1;
+        }
+
+        // index page
+
+        .index-container {
+            padding-top: $base-padding * 6;
+            padding-bottom: $base-padding * 6;
+            @include breakpoint('lg') {
+                padding-top: $base-padding * 8;
+                padding-bottom: $base-padding * 12;
+            }
+        }
+
+        .index-headline {
+            width: $col * 5 + $gap * 4;
+            font-size: $type-display-medium;
+            @include breakpoint('fr') {
+                font-size: $type-display-small;
+            }
+            @include breakpoint('lg') {
+                font-size: $type-display-medium;
+            }
+            @include breakpoint('xl') {
+                font-size: 65px;
+            }
+            font-weight: $black-fw;
+            text-transform: uppercase;
+            letter-spacing: 3.25px;
+            line-height: 1.2;
+            color: var(--md-sys-color-on-surface);
+        }
+
+        .index-detail {
+            width: $col * 3 + $gap * 3;
+            font-size: $type-label-medium;
+            @include breakpoint('lg') {
+                width: $col * 3 + $gap * 2;
+            }
+            @include breakpoint('xl') {
+                width: $col * 2 + $gap * 2;
+            }
+            font-weight: $black-fw;
+            line-height: normal;
+            letter-spacing: $letter-spacing;
+            color: var(--md-sys-color-on-surface-variant);
+        }
+
+        .index-thumbnail {
+            position: relative;
+            width: $col * 4 + $gap * 4;
+            height: 100%;
+            border-radius: $x-large-border-radius;
+            background-color: var(--md-ref-palette-primary95);
+            overflow: hidden;
+            .thumbnail {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+            .index-btn {
+                position: absolute;
+                left: $gap;
+                bottom: $base-padding * 6;
+                @include breakpoint('lg') {
+                    bottom: $base-padding * 12;
+                }
+                z-index: 2;
+                .filled-iconbtn {
+                    background-color: var(--md-sys-color-primary-container);
+                    .icon {
+                        color: var(--md-sys-color-on-primary-container);
+                    }
+                    &:hover {
+                        background-color: var(--md-ref-palette-primary95);
+                        .icon {
+                            color: var(--md-sys-color-on-primary-container);
+                        }
+                    }
+                    &:active {
+                        background-color: var(--md-ref-palette-primary98);
+                        .icon {
+                            color: var(--md-sys-color-on-primary-container);
+                        }
+                    }
+                }
+            }
+        }
+
+        // wok page
+
+        .work-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            padding: 0 $col;
+            & > *:not(:first-child) {
+                margin-top: $base-margin * 22;
+            }
+            .work-row {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                .element-1 {
+                    position: relative;
+                    display: flex;
+                    flex-direction: column;
+                    img {
+                        width: $col + $gap * 2;
+                    }
+                    .filled-iconbtn {
+                        margin-left: -$gap;
+                    }
+                    .element-1-column {
+                        display: flex;
+                        justify-content: center;
+                        width: $col + $gap * 2;
+                        div {
+                            padding-top: $base-padding * 3;
+                            @include breakpoint('lg') {
+                                padding-top: $base-padding * 7;
+                            }
+                            @include breakpoint('xl') {
+                                padding-top: $base-padding * 5;
+                            }
+                        }
+                    }
+                } 
+                .element-2 {
+                    position: relative;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: space-between;
+                    height: 100%;
+                    .definition-1 {
+                        position: relative;
+                        width: $col * 6 + $gap * 6;
+                        display: flex;
+                        align-items: flex-start;
+                        font-weight: $black-fw;
+                        img {
+                            position: absolute;
+                            width: $col * 6 + $gap * 6;
+                            z-index: -1;
+                        }
+                        .filled-iconbtn {
+                            position: absolute;
+                            right: 0;
+                            margin: $base-margin * 4 $gap;
+                        }
+                        p {
+                            font-size: $type-headline-small;
+                            @include breakpoint('lg') {
+                                font-size: $type-headline-medium;
+                            }
+                            @include breakpoint('xl') {
+                                font-size: $base-width * 10;
+                            }
+                            width: $col * 4 + $gap * 3;
+                            margin-right: $base-width * -146;
+                            letter-spacing: 2px;
+                            line-height: normal;
+                            text-transform: uppercase;
+                            color: var(--md-sys-color-on-primary-container);
+
+                        }
+                    }
+                    .definition-2 {
+                        width: $col * 4 + $gap * 6;
+                        padding: $base-padding * 5 $base-padding * 17;
+                        @include breakpoint('lg') {
+                            width: $col * 4 + $gap * 4;
+                            padding: $base-padding * 5 $base-padding * 19;
+                        }
+                        @include breakpoint('xl') {
+                            padding: $base-padding * 5 $base-padding * 26;
+                        }
+                        border-radius: $full-border-radius;
+                        background-color: var(--md-sys-color-secondary-container);
+                        p {
+                            font-size: 10px;
+                            @include breakpoint('lg') {
+                                font-size: $type-label-small;
+                            }
+                            @include breakpoint('xl') {
+                                font-size: $type-title-medium;
+                            }
+                            font-weight: $bold-fw;
+                            line-height: normal;
+                            text-align: center;
+                            color: var(--md-sys-color-on-secondary-container);
+                        }
+                    }
+                }
+                .element-3 {
+                    position: relative;
+                    display: flex;
+                    img {
+                        width: $col * 3 + $gap * 3;
+                    }
+                    .filled-iconbtn {
+                        margin-left: $gap * -0.5;
+                        @include breakpoint('lg') {
+                            margin-left: $gap * -1;
+                        }
+                        @include breakpoint('xl') {
+                            margin-left: $gap * -2;
+                        }
+                    }
+                }
+                .element-4 {
+                    position: relative;
+                    display: flex;
+                    align-items: flex-end;
+                    img {
+                        width: $col * 3 + $gap * 3;
+                        z-index: -1;
+                    }
+                    .filled-iconbtn {
+                        margin-right: $gap * -0.5;
+                        @include breakpoint('lg') {
+                            margin-right: $gap * -1;
+                        }
+                        @include breakpoint('xl') {
+                            margin-right: $gap * -2;
+                        }
+                    }
+                }
+
+                .filled-iconbtn {
+                    width: $base-width * 12;
+                    height: $base-height * 12;
+                    @include breakpoint('lg') {
+                        width: $base-width * 13;
+                        height: $base-width * 13;
+                    }
+                    @include breakpoint('xl') {
+                        width: $base-width * 17;
+                        height: $base-height * 17;
+                    }
+                    .icon {
+                        width: $type-display-small !important;
+                        height: $type-display-small !important;
+                        font-size: $type-display-small !important;
+                    }
+                }
+            }
+        }
+
+        // human page
+
+        .human-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: $base-padding * 4 0;
+            @include breakpoint('lg') {
+                padding: $base-padding * 12 0;
+            }
+            @include breakpoint('xl') {
+                padding: $base-padding * 5 0;
+            }
+            justify-content: space-between;
+            .basics {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                padding-right: $col;
+                .brand {
+                    font-size: 81px;
+                    @include breakpoint('lg') {
+                        font-size: 91px;
+                    }
+                    @include breakpoint('xl') {
+                        font-size: 103px;
+                    }
+                    font-weight: $black-fw;
+                    line-height: normal;
+                    letter-spacing: 5.15px;
+                    text-transform: uppercase;
+                    color: var(--md-sys-color-on-surface);
+                }
+                .tagline {
+                    font-size: 72px;
+                    @include breakpoint('lg') {
+                        font-size: 81px;
+                    }
+                    @include breakpoint('xl') {
+                        font-size: 91px;
+                    }
+                    font-weight: $black-fw;
+                    line-height: normal;
+                    letter-spacing: 4.55px;
+                    text-transform: uppercase;
+                    color: var(--md-sys-color-on-surface-variant);
+                }
+            }
+            .work-around {
+                display: flex;
+                flex-direction: column;
+                width: $col * 8 + $gap * 7;
+                margin-left: -($col + $gap);
+                p {
+                    width: $col * 4 + $gap * 4;
+                    padding: $base-padding * 5 $col $base-padding * 5 ($col * 2 + $gap);
+                    font-size: 10px;
+                    @include breakpoint('lg') {
+                        padding: $base-padding * 5 $col $base-padding * 5 ($col * 2 + $gap);
+                        font-size: 10px;
+                    }
+                    @include breakpoint('xl') {
+                        padding: $base-padding * 5 $base-padding * 30 $base-padding * 5 $base-padding * 60;
+                        font-size: $type-title-medium;
+                    }
+                    font-weight: $medium-fw;
+                    line-height: normal;
+                    letter-spacing: $letter-spacing;
+                    text-align: end;
+                    border-radius: $full-border-radius;
+                    background-color: var(--md-sys-color-primary-container);
+                    color: var(--md-sys-color-on-primary-container);
+                    margin-bottom: $base-margin * -10;
+                }
+                img {
+                    width: $col * 8 + $gap * 7;
+                    z-index: -1;
+                }
+                .filled-iconbtn {
+                    width: $base-width * 11;
+                    height: $base-height * 11;
+                    @include breakpoint('lg') {
+                        width: $base-width * 12;
+                        height: $base-height * 12;
+                    }
+                    @include breakpoint('xl') {
+                        width: $base-width * 17;
+                        height: $base-height * 17;
+                    }
+                    margin-left: auto;
+                    margin-right: $col;
+                    margin-top: $base-margin * -8.5;
+                    background-color: var(--md-sys-color-primary-container);
+                    .icon {
+                        width: $type-display-small !important;
+                        height: $type-display-small !important;
+                        font-size: $type-display-small !important;
+                        color: var(--md-sys-color-on-primary-container);
+                    }
+                    &:hover {
+                        background-color: var(--md-ref-palette-primary95);
+                        .icon {
+                            color: var(--md-sys-color-on-primary-container);
+                        }
+                    }
+                    &:active {
+                        background-color: var(--md-ref-palette-primary98);
+                        .icon {
+                            color: var(--md-sys-color-on-primary-container);
+                        }
+                    }
+                }
+            }
+            .redirect {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 6px;
+                width: 100%;
+                p {
+                    font-size: 20px;
+                    @include breakpoint('lg') {
+                        font-size: 20px;
+                    }
+                    @include breakpoint('xl') {
+                        font-size: $type-title-large;
+                    }
+                    line-height: 20px;
+                    letter-spacing: 0.1px;
+                    color: var(--md-sys-color-on-surface-variant);
+                }
+                div {
+                    display: flex;
+                    align-items: center;
+                    gap: $base-padding * 3;
+                }
+                .filled-iconbtn {
+                    width: $base-width * 5;
+                    height: $base-height * 5;
+                    background-color: var(--md-sys-color-primary-container);
+                    .icon {
+                        width: $type-body-small !important;
+                        height: $type-body-small !important;
+                        font-size: $type-body-small !important;
+                        color: var(--md-sys-color-on-primary-container);
+                    }
+                    &:hover {
+                        background-color: var(--md-ref-palette-primary95);
+                        .icon {
+                            color: var(--md-sys-color-on-primary-container);
+                        }
+                    }
+                    &:active {
+                        background-color: var(--md-ref-palette-primary98);
+                        .icon {
+                            color: var(--md-sys-color-on-primary-container);
+                        }
+                    }
+                }
+            }
+        }
+
+        // contact page
+
+        .contact-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: $base-padding * 10;
+            @include breakpoint('lg') {
+                gap: $base-padding * 18;
+            }
+            width: 100%;
+            height: 100%;
+            @include breakpoint('lg') {
+                gap: $base-padding * 18;
+            }
+            @include breakpoint('xl') {
+                gap: $base-padding * 22;
+            }
+            text-transform: uppercase;
+            .basics {
+                padding-left: 0;
+                @include breakpoint('lg') {
+                    padding-left: 0;
+                }
+                @include breakpoint('xl') {
+                    padding-left: $col;
+                }
+                h1 {
+                    display: inline-block;
+                    width: $col * 5 + $gap * 6;
+                    height: $base-height * 20;
+                    font-size: 91px;
+                    line-height: normal;
+                    letter-spacing: 5.8px;
+                    @include breakpoint('lg') {
+                        height: $base-height * 24;
+                        width: $col * 5 + $gap * 5;
+                        font-size: 103px;
+                        letter-spacing: 5.15px;
+                    }
+                    @include breakpoint('xl') {
+                        height: $base-height * 28;
+                        width: $col * 4 + $gap * 5;
+                        font-size: 116px;
+                        letter-spacing: 5.8px;
+                    }
+                    color: var(--md-sys-color-background);
+                    background-color: var(--md-sys-color-on-primary-fixed-variant);
+                }
+                .subtitle {
+                    margin-top: 0;
+                    @include breakpoint('lg') {
+                        margin-top: $base-margin * 7;
+                    }
+                    span {
+                        display: table;
+                        height: $base-height * 6;
+                        margin-bottom: $base-margin;
+                        font-size: $type-title-large;
+                        line-height: normal;
+                        letter-spacing: 1.1px;
+                        font-weight: $black-fw;
+                        color: var(--md-sys-color-on-primary-container);
+                        background: var(--md-sys-color-primary-container);
+                    }
+                }
+            }
+            .contact-form {
+                display: flex;
+                flex-direction: column;
+                padding-left: 0;
+                @include breakpoint('lg') {
+                    padding-left: 0;
+                }
+                @include breakpoint('xl') {
+                    padding-left: $col;
+                }
+                form {
+                    display: flex;
+                    flex-direction: column;
+                    gap: $base-padding * 10;
+                    @include breakpoint('lg') {
+                        gap: $base-padding * 18;
+                    }
+                    @include breakpoint('xl') {
+                        gap: $base-padding * 22;
+                    }
+                    .input-pt {
+                        padding-top: 0;
+                        @include breakpoint('lg') {
+                            padding-top: $base-padding * 3;
+                        }
+                    }
+                    .input-flex {
+                        display: flex;
+                        gap: $base-padding * 4;
+                        @include breakpoint('lg') {
+                            gap: $base-padding * 4;
+                        }
+                        @include breakpoint('xl') {
+                            gap: $base-padding * 6;
+                        }
+                        position: relative;
+                        span {
+                            font-size: 51px;
+                            line-height: normal;
+                            letter-spacing: 2.55px;
+                            @include breakpoint('lg') {
+                                font-size: 64px;
+                                letter-spacing: 3.2px;
+                            }
+                            @include breakpoint('xl') {
+                                font-size: 81px;
+                                letter-spacing: 4.162px;
+                            }
+                            font-weight: $black-fw;
+                            color: var(--md-sys-color-on-surface);
+                        }
+                        .input-container {
+                            position: relative;
+                            width: $base-width * 90;
+                            @include breakpoint('lg') {
+                                width: $base-width * 105;
+                            }
+                            overflow: hidden;
+                            input {
+                                width: 100%;
+                                height: 100%;
+                                border: none;
+                                font-size: 64px;
+                                color: var(--md-sys-color-on-surface);
+                                background: none;
+                                &:focus {
+                                    outline: none;
+                                    & + label::after {
+                                        transform: translateX(0%);
+                                    }
+                                }
+                                &:valid {
+                                    & + label::after {
+                                        transform: translateX(0%);
+                                    }
+                                }
+                            }
+                            label {
+                                position: absolute;
+                                bottom: 20px;
+                                left: 0px;
+                                width: 100%;
+                                height: 100%;
+                                pointer-events: none;
+                                border-bottom: 3px solid var(--md-sys-color-on-surface);
+                                &::after {
+                                    content: "";
+                                    position: absolute;
+                                    bottom: 0px;
+                                    left: 0px;
+                                    width: 100%;
+                                    height: 100%;
+                                    border-bottom: 3px solid var(--md-sys-color-on-primary-container);
+                                    transform: translateX(-100%);
+                                    transition: $easing;
+                                }
+                            }
+                        }
+                    }
+                    .redirect {
+                        width: 100%;
+                        display: flex;
+                        justify-content: flex-end;
+                        padding-right: $col + $gap;
+                        .filled-iconbtn {
+                            width: $col;
+                            height: $col;
+                            background-color: var(--md-sys-color-primary-container);
+                            .icon {
+                                width: $base-width * 16 !important;
+                                font-size: $base-width * 16 !important;
+                                color: var(--md-sys-color-on-primary-container);
+                            }
+                            &:hover {
+                                background-color: var(--md-ref-palette-primary95);
+                                .icon {
+                                    color: var(--md-sys-color-on-primary-container);
+                                }
+                            }
+                            &:active {
+                                background-color: var(--md-ref-palette-primary98);
+                                .icon {
+                                    color: var(--md-sys-color-on-primary-container);
+                                }
+                            }
+                        }
+                        img {
+                            width: $col;
+                        }
+                    }
+                }
+            }
+
+        }
+
+        // work page
+
+        .work-details-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: calc(100% + #{$margin});
+            margin-left: -$margin;
+            img {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+            .thumbnail-btns {
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+                padding: 0 $base-padding * 6;
+                margin-top: $base-margin * -16;
+                z-index: 2;
+                .filled-iconbtn {
+                    background-color: var(--md-sys-color-primary-container);
+                    .icon {
+                        color: var(--md-sys-color-on-primary-container);
+                    }
+                    &:hover {
+                        background-color: var(--md-ref-palette-primary95);
+                        .icon {
+                            color: var(--md-sys-color-on-primary-container);
+                        }
+                    }
+                    &:active {
+                        background-color: var(--md-ref-palette-primary98);
+                        .icon {
+                            color: var(--md-sys-color-on-primary-container);
+                        }
+                    }
+                }
+            }
+            .details {
+                width: $col * 10 + $gap * 11;
+                margin-top: $base-padding * 22;
+                .title {
+                    font-size: 103px;
+                    font-weight: $black-fw;
+                    line-height: 103px;
+                    letter-spacing: -5.15px;
+                    text-transform: uppercase;
+                    color: var(--md-sys-color-on-surface);
+                }
+                .description {
+                    display: table;
+                    font-size: $type-headline-large;
+                    font-weight: $black-fw;
+                    line-height: normal;
+                    padding-right: $col;
+                    color: var(--md-sys-color-on-primary-container);
+                    background: var(--md-sys-color-primary-container);
+                }
+                .path {
+                    font-size: $type-headline-large;
+                    font-family: $bold-fw;
+                    line-height: normal;
+                    color: var(--md-sys-color-on-surface);
+                }
+                .pc {
+                    display: flex;
+                    align-items: center;
+                    gap: $base-padding;
+                    padding-left: $gap;
+                    color: var(--md-sys-color-on-secondary-container);
+                    background: var(--md-sys-color-primary-container);
+                    p {
+                        display: table;
+                        font-size: $type-headline-large;
+                        font-weight: $base-fw;
+                        line-height: normal;
+                    }
+                }
+                .date {
+                    display: table;
+                    font-size: $type-headline-large;
+                    font-weight: $base-fw;
+                    line-height: normal;
+                    padding-left: $gap;
+                    color: var(--md-sys-color-on-secondary-container);
+                    background: var(--md-sys-color-primary-container);
+                }
+            }
+            .shoot-controls {
+                display: flex;
+                gap: $base-padding * 40;
+                align-self: flex-end;
+                border-radius: $large-border-radius;
+                margin-top: $base-margin * 30;
+                padding: $base-padding * 8 $base-padding * 12;
+                background-color: var(--md-sys-color-primary);
+                z-index: 2;
+            }
+            .shoot {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-self: flex-start;
+                width: calc(100% - #{$col});
+                // height: $base-height * 140;
+                border-radius: 0 $full-border-radius $full-border-radius 0;
+                padding: $base-padding * 16 0;
+                margin-top: $base-margin * -13;
+                margin-bottom: $base-margin * 30;
+                background-color: var(--md-ref-palette-primary95);
+                .shoots {
+                    display: flex;
+                    gap: $gap;
+                    padding-left: $margin;
+                    .pic-1 {
+                        width: $col * 3 + $gap * 2;
+                        border-radius: $x-large-border-radius;
+                    }
+                    .shoots-side {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-between;
+                        .sub-pics {
+                            display: flex;
+                            gap: $gap;
+                            .sub-pic {
+                                width: $col * 2 + $gap;
+                                border-radius: $large-border-radius;
+                            }
+                        }
+                        .shoot-details p {
+                            font-size: $type-headline-medium;
+                            font-weight: $medium-fw;
+                            line-height: normal;
+                            padding: $base-padding * 6;
+                            border-radius: $x-large-border-radius;
+                            color: var(--md-sys-color-on-primary);
+                            background-color: var(--md-sys-color-primary);
+                        }
+                    }
+                }
+            }
+
+            .swiper {
+                width: 100%;
+                margin: 0 auto $base-margin * 15 0;
+            }
+              
+            .swiper-slide {
+                width: $col * 7 + $gap * 6;
+                border-radius: $full-border-radius;
+                margin-right: $gap;
+                div {    
+                    display: flex;
+                    align-items: center;
+                    gap: $gap;
+                    .filled-iconbtn {
+                        width: $base-width * 31;
+                        height: $base-height * 31;
+                        background-color: var(--md-sys-color-primary-container);
+                        .icon {
+                            width: $base-width * 16 !important;
+                            height: $base-height * 16 !important;
+                            font-size: $base-width * 16 !important;
+                            color: var(--md-sys-color-on-primary-container);
+                        }
+                        &:hover {
+                            background-color: var(--md-ref-palette-primary95);
+                            .icon {
+                                color: var(--md-sys-color-on-primary-container);
+                            }
+                        }
+                        &:active {
+                            background-color: var(--md-ref-palette-primary98);
+                            .icon {
+                                color: var(--md-sys-color-on-primary-container);
+                            }
+                        }
+                    }
+                }
+            }
+
+            .swiper-slide img {
+                width: $col * 6 + $gap * 5 !important;
+                display: block;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+    }
+}
+
+

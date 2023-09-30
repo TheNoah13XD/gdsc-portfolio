@@ -1,0 +1,61 @@
+@use "sass:map";
+
+// typography
+$type-body-small: 12px !default;
+$type-body-medium: 14px !default;
+$type-body-large: 16px !default;
+
+$type-label-small: 11px !default;
+$type-label-medium: 12px !default;
+$type-label-large: 14px !default;
+
+$type-title-small: 14px !default;
+$type-title-medium: 16px !default;
+$type-title-large: 22px !default;
+
+$type-headline-small: 24px !default;
+$type-headline-medium: 28px !default;
+$type-headline-large: 32px !default;
+
+$type-display-small: 36px !default;
+$type-display-medium: 45px !default;
+$type-display-large: 57px !default;
+
+$letter-spacing: -.8px !default;   // customized
+$line-height: 24px !default;
+
+$light-fw: 300;
+$base-fw: 400;
+$medium-fw: 500;
+$bold-fw: 700;
+$black-fw: 900;
+
+// spacing
+$base-padding: 4px !default;
+$base-margin: 4px !default;
+$base-width: 4px !default;
+$base-height: 4px !default;
+
+
+// box-shadow
+$elevation-0: none !default;
+$elevation-1: 0px 1px 2px 0px rgb(0 0 0 / 30%), 0px 1px 3px 1px rgb(0 0 0 / 15%) !default;
+$elevation-2: 0px 1px 2px 0px rgb(0 0 0 / 30%), 0px 2px 6px 2px rgb(0 0 0 / 15%) !default;
+$elevation-3: 0px 1px 3px 0px rgb(0 0 0 / 30%), 0px 4px 8px 3px rgb(0 0 0 / 15%) !default;
+$elevation-4: 0px 2px 3px 0px rgb(0 0 0 / 30%), 0px 6px 10px 4px rgb(0 0 0 / 15%) !default;
+$elevation-5: 0px 4px 4px 0px rgb(0 0 0 / 30%), 0px 8px 12px 6px rgb(0 0 0 / 15%) !default;
+
+
+// borders
+$base-border-radius: 12px !default;
+$x-small-border-radius: 4px !default;
+$small-border-radius: 8px !default;
+$large-border-radius: 16px !default;
+$x-large-border-radius: 28px !default;
+$full-border-radius: 999px !default;
+
+
+// easings
+$easing: all 500ms cubic-bezier(0.2, 0, 0, 1) !default;
+$easing-accelerate: all 200ms cubic-bezier(0.3, 0, 1, 1) !default;
+$easing-decelerate: all 400ms cubic-bezier(0, 0, 0, 1) !default;

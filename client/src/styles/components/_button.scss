@@ -1,0 +1,259 @@
+@use 'sass:math';
+
+@mixin btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: $base-height * 10;
+    padding: 0 ($base-padding * 4);
+    outline: none;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all .2s cubic-bezier(.2,0,0,1);
+    .btn-label {
+        font-size: $type-label-large;
+        font-weight: $medium-fw;
+        letter-spacing: 0.1px;
+        padding: 0 ($base-padding * 2);
+    }
+    .btn-icon {
+        font-size: 18px;
+        user-select: none;
+    }
+}
+
+.elevated-btn {
+    @include btn;
+    background-color: var(--md-sys-color-surface-container-low);
+    box-shadow: $elevation-1;
+    .btn-label {
+        color: var(--md-sys-color-primary);
+    }
+    .btn-icon {
+        color: var(--md-sys-color-primary);
+    }
+    &:disabled {
+        background-color: rgba(#1D1B20, 12%);
+        pointer-events: none;
+        box-shadow: $elevation-0;
+        .btn-label {
+            color: var(--md-sys-color-on-surface);
+            opacity: 38%;
+            user-select: none;
+        }
+        .btn-icon {
+            color: var(--md-sys-color-on-surface);
+            opacity: 38%;
+        }
+    }
+    &:hover {
+        background-color: color-mix(in srgb, var(--md-sys-color-surface-container-low), #6750A4 8%);
+        box-shadow: $elevation-2;
+        .btn-label {
+            color: var(--md-sys-color-primary);
+        }
+        .btn-icon {
+            color: var(--md-sys-color-primary);
+        }
+    }
+    &:active {
+        background-color: color-mix(in srgb, var(--md-sys-color-surface-container-low), #6750A4 12%);
+        box-shadow: $elevation-1;
+        border-radius: $small-border-radius;
+        .btn-label {
+            color: var(--md-sys-color-primary);
+        }
+        .btn-icon {
+            color: var(--md-sys-color-primary);
+        }
+    }
+}
+
+.filled-btn {
+    @include btn;
+    background-color: var(--md-sys-color-primary);
+    box-shadow: $elevation-0;
+    .btn-label {
+        color: var(--md-sys-color-on-primary);
+    }
+    .btn-icon {
+        color: var(--md-sys-color-on-primary);
+    }
+    &:disabled {
+        background-color: rgba(#1D1B20, 12%);
+        pointer-events: none;
+        box-shadow: $elevation-0;
+        .btn-label {
+            color: var(--md-sys-color-on-surface);
+            opacity: 38%;
+            user-select: none;
+        }
+        .btn-icon {
+            color: var(--md-sys-color-on-surface);
+            opacity: 38%;
+        }
+    }
+    &:hover {
+        background-color: color-mix(in srgb, var(--md-sys-color-primary) 100%, #fff 8%);
+        box-shadow: $elevation-1;
+        .btn-label {
+            color: var(--md-sys-color-on-primary);
+        }
+        .btn-icon {
+            color: var(--md-sys-color-on-primary);
+        }
+    }
+    &:active {
+        background-color: color-mix(in srgb, var(--md-sys-color-primary) 100%, #fff 12%);
+        box-shadow: $elevation-0;
+        border-radius: $small-border-radius;
+        .btn-label {
+            color: var(--md-sys-color-on-primary);
+        }   
+        .btn-icon {
+            color: var(--md-sys-color-on-primary);
+        }
+    }
+}
+
+.tonal-btn {
+    @include btn;
+    background-color: var(--md-sys-color-secondary-container);
+    box-shadow: $elevation-0;
+    .btn-label {
+        color: var(--md-sys-color-on-secondary-container);
+    }
+    .btn-icon {
+        color: var(--md-sys-color-on-secondary-container);
+    }
+    &:disabled {
+        background-color: rgba(#1D1B20, 12%);
+        pointer-events: none;
+        box-shadow: $elevation-0;
+        .btn-label {
+            color: var(--md-sys-color-on-surface);
+            opacity: 38%;
+            user-select: none;
+        }
+        .btn-icon {
+            color: var(--md-sys-color-on-surface);
+            opacity: 38%;
+        }
+    }
+    &:hover {
+        background-color: color-mix(in srgb, var(--md-sys-color-secondary-container), #1D192B 8%);
+        box-shadow: $elevation-1;
+        .btn-label {
+            color: var(--md-sys-color-on-secondary-container);
+        }
+        .btn-icon {
+            color: var(--md-sys-color-on-secondary-container);
+        }
+    }
+    &:active {
+        background-color: color-mix(in srgb, var(--md-sys-color-secondary-container), #1D192B 12%);
+        box-shadow: $elevation-0;
+        border-radius: $small-border-radius;
+        .btn-label {
+            color: var(--md-sys-color-on-secondary-container);
+        }
+        .btn-icon {
+            color: var(--md-sys-color-on-secondary-container);
+        }
+    }
+}
+
+.outlined-btn {
+    @include btn;
+    background-color: transparent;
+    outline: 1px solid var(--md-sys-color-outline);
+    box-shadow: $elevation-0;
+    .btn-label {
+        color: var(--md-sys-color-primary);
+    }
+    .btn-icon {
+        color: var(--md-sys-color-primary);
+    }
+    &:disabled {
+        background-color: transparent;
+        pointer-events: none;
+        outline: 1px solid rgba(#1D1B20, 12%);
+        box-shadow: $elevation-0;
+        .btn-label {
+            color: var(--md-sys-color-on-surface);
+            opacity: 38%;
+            user-select: none;
+        }
+        .btn-icon {
+            color: var(--md-sys-color-on-surface);
+            opacity: 38%;
+        }
+    }
+    &:hover {
+        background-color: rgba(#6750A4, 8%);
+        .btn-label {
+            color: var(--md-sys-color-primary);
+        }
+        .btn-icon {
+            color: var(--md-sys-color-primary);
+        }
+    }
+    &:active {
+        background-color: rgba(#6750A4, 12%);
+        border-radius: $small-border-radius;
+        outline: 1px solid var(--md-sys-color-primary);
+        .btn-label {
+            color: var(--md-sys-color-primary);
+        }
+        .btn-icon {
+            color: var(--md-sys-color-primary);
+        }
+    }
+}
+
+.text-btn {
+    @include btn;
+    background-color: transparent;
+    box-shadow: $elevation-0;
+    .btn-label {
+        color: var(--md-sys-color-primary);
+    }
+    .btn-icon {
+        color: var(--md-sys-color-primary);
+    }
+    &:disabled {
+        background-color: transparent;
+        pointer-events: none;
+        box-shadow: $elevation-0;
+        .btn-label {
+            color: var(--md-sys-color-on-surface);
+            opacity: 38%;
+            user-select: none;
+        }
+        .btn-icon {
+            color: var(--md-sys-color-on-surface);
+            opacity: 38%;
+        }
+    }
+    &:hover {
+        background-color: rgba(#6750A4, 8%);
+        .btn-label {
+            color: var(--md-sys-color-primary);
+        }
+        .btn-icon {
+            color: var(--md-sys-color-primary);
+        }
+    }
+    &:active {
+        background-color: rgba(#6750A4, 12%);
+        border-radius: $small-border-radius;
+        .btn-label {
+            color: var(--md-sys-color-primary);
+        }
+        .btn-icon {
+            color: var(--md-sys-color-primary);
+        }
+    }
+}

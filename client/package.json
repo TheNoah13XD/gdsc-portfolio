@@ -1,0 +1,42 @@
+{
+  "name": "noah-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "lazyy": "sass  --no-source-map src/styles/index.scss:src/styles/index.css",
+    "watch:lazyy": "sass  --no-source-map src/styles/index.scss:src/styles/index.css --watch",
+    "purge:lazyy": "purgecss --css src/styles/index.css --content \"src/**/*.tsx\" --output src/styles/",
+    "build:lazyy": "npm run purge:lazyy && postcss src/styles/index.css -u autoprefixer cssnano -r --no-map",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-brands-svg-icons": "^6.4.2",
+    "@fortawesome/free-regular-svg-icons": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@fullhuman/postcss-purgecss": "^5.0.0",
+    "@types/node": "20.4.5",
+    "@types/react": "18.2.17",
+    "@types/react-dom": "18.2.7",
+    "autoprefixer": "^10.4.14",
+    "cssnano": "^6.0.1",
+    "material-symbols": "^0.10.2",
+    "nodemailer": "^6.9.4",
+    "purgecss": "^5.0.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "sass": "^1.64.1",
+    "swiper": "^10.2.0",
+    "typescript": "5.1.6"
+  },
+  "devDependencies": {
+    "@types/nodemailer": "^6.4.9",
+    "next": "^13.4.12",
+    "postcss": "^8.4.27",
+    "postcss-cli": "^10.1.0"
+  }
+}

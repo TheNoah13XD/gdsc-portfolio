@@ -1,0 +1,63 @@
+@mixin apply-media-query($breakpoint) {
+    @if $breakpoint {
+        @media (min-width: #{$breakpoint}) {
+            @content;
+        }
+    } @else {
+        @content;
+    }
+}
+  
+  
+@each $value, $breakpoint in $breakpoints {
+    @each $property, $map in $utilities {
+        $prefix: map-get($map, "prefix");
+        $values: map-get($map, "values");
+    
+        @each $k, $v in $values {
+            .#{$value}-#{$prefix}-#{$k} {
+                @include apply-media-query($breakpoint) {
+                    #{$property}: $v;
+                }
+            }
+        }
+    }
+}
+  
+
+// dont even think about uncommenting this unless u wanna wait for a day to purge css
+
+// utility classes with pixels
+// @for $i from 1 through 560 {
+//     @each $value, $breakpoint in $breakpoints {
+//         @media (min-width: $breakpoint) {
+//             $suffix: "-#{$i}-px";
+
+//             $properties: (
+//                 "p": padding,
+//                 "pl": padding-left,
+//                 "pr": padding-right,
+//                 "pt": padding-top,
+//                 "pb": padding-bottom,
+//                 "m": margin,
+//                 "ml": margin-left,
+//                 "mr": margin-right,
+//                 "mt": margin-top,
+//                 "mb": margin-bottom,
+//                 "min-w": min-width,
+//                 "min-h": min-height,
+//                 "max-w": max-width,
+//                 "max-h": max-height,
+//                 "w": width,
+//                 "h": height
+//             );
+
+//             @each $prefix, $property in $properties {
+//                 .#{$value}-#{$prefix}#{$suffix} {
+//                     #{$property}: #{$i}px;
+//                 }
+//             }
+//         }
+//     }
+// }
+
