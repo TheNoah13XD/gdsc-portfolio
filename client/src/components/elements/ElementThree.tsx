@@ -15,7 +15,7 @@ const ElementThree: FC<ElementThreeProps> = ({ className, data }) => {
 
     return (
         <div className={combinedClassName}>
-            <img src={attributes.thumbnail} alt="three" />
+            <img src="/shapes/3.png" alt="three" />
             <Link href={attributes.link}><IconButton icon="north_east" /></Link>
         </div>
     )

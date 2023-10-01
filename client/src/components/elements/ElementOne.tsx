@@ -17,7 +17,7 @@ const ElementOne: FC<ElementOneProps> = ({ className, data }) => {
     return (
         <div className={combinedClassName}>
             <div className="display-f align-i-e">
-                <img src={attributes.thumbnail} alt="one" />
+                <img src="/shapes/1.png" alt="one" />
                 <Link href={attributes.link}><IconButton icon="north_east" /></Link>
             </div>
             <div className="element-1-column">

@@ -17,7 +17,7 @@ const ElementTwo: FC<ElementTwoProps> = ({ className, data }) => {
         <div className={combinedClassName}>
             <div className="definition-1">
                 <p>where style dazzles, fashion redefines allure.</p>
-                <img src={attributes.thumbnail} alt="two" />
+                <img src="/shapes/2.png" alt="two" />
                 <Link href={attributes.link}><IconButton icon="north_east" /></Link>
             </div>
             <div className="definition-2">
