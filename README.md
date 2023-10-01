@@ -6,9 +6,9 @@ A portfolio for myself, Noah (alter ego - Broken), to join GDSC.
 
 **Client:** NextJS, Firebase (Authentication), Lazyy Sass (Material Design 3)
 
-**Server:** Strapi (as a CMS), Node
+**Server:** Strapi (as a CMS), PostgreSQL, Node
 
-**Host:** Vercel (Client), Heroku (Server)
+**Host:** Vercel (Client), Digital Ocean (Server)
 
 ## Contributing
 
