@@ -3,13 +3,12 @@
     bottom: 0;
     right: 0;
     font-weight: $medium-fw;
-    color: var(--md-sys-color-on-primary-container);
-    background: var(--md-sys-color-primary-container);
-    border-radius: $base-border-radius;
+    color: var(--md-sys-color-on-tertiary-container);
+    background: var(--md-sys-color-tertiary-container);
     padding: $base-padding * 4 $base-padding * 40 $base-padding * 4 $base-padding * 4;
     margin: 0 $base-margin * 5 $base-margin * 5 0;
-    transition: $easing;
-    -webkit-transition: $easing;
+    transition: all 1s cubic-bezier(0.77,0,0.18,1);
+    -webkit-transition: all 1s cubic-bezier(0.77,0,0.18,1);
 }
 
 .toast {
@@ -19,5 +18,7 @@
 
 .toast-hidden {
     @include toast();
+    color: var(--md-sys-color-on-primary-container);
+    background: var(--md-sys-color-primary-container);
     transform: translateX(120%);
 }

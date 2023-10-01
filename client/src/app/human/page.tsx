@@ -33,19 +33,19 @@ const HumanPage: FC = ({}) => {
             <div className="human-container">
                 <div className="basics">
                     <p className="brand">Broken</p>
-                    <p className="tagline">REVAMP, INSPIRE</p>
+                    <p className="tagline">WAIT, WHO?</p>
                     <Link href="/work"><Button icon="arrow_forward">Work</Button></Link>
                 </div>
                 <div className="work-around">
-                    <p>Empowering fashion expression with curated expertise.</p>
+                    <p>Noah, broken as an alter ego. I don't like descriptions.</p>
                     <img src="/shapes/5.png" alt="five" />
                     <Link href="/contact"><IconButton icon="north_east" /></Link>
                 </div>
                 <div className="redirect">
-                    <p>Discover a captivating portfolio of our remarkable work. </p>
+                    <p>Better choice to be noticed, is not to be noticed.</p>
                     <div>
-                        <p>See what I'm currently working on!</p>
-                        <Link href="/login"><IconButton icon="north_east" /></Link>
+                        <p>See my primary portfolio!</p>
+                        <Link href="https://thebrokenxd.design/"><IconButton icon="north_east" /></Link>
                     </div>
                 </div>
             </div>

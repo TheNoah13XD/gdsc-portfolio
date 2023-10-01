@@ -16,12 +16,12 @@ const ElementTwo: FC<ElementTwoProps> = ({ className, data }) => {
     return (
         <div className={combinedClassName}>
             <div className="definition-1">
-                <p>where style dazzles, fashion redefines allure.</p>
+                <p>{attributes.brief}</p>
                 <img src="/shapes/2.png" alt="two" />
                 <Link href={attributes.link}><IconButton icon="north_east" /></Link>
             </div>
             <div className="definition-2">
-                <p>Captivating style redefines allure with enchanting fashion, unveiling limitless elegance.</p>
+                <p>{attributes.description}</p>
             </div>
         </div>
     )

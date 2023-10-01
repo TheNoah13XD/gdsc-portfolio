@@ -9,6 +9,7 @@ import { Ring } from '@uiball/loaders'
 
 // components
 import IconButton from "@/components/ui/IconButton";
+import Toast from "@/components/ui/Toast";
 
 const ContactPage: FC = ({}) => {
 
@@ -31,6 +32,8 @@ const ContactPage: FC = ({}) => {
         text: "",
         email: ""
     });
+    const [visible, setVisible] = useState(false);
+    const [message, setMessage] = useState("");
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
@@ -45,9 +48,17 @@ const ContactPage: FC = ({}) => {
             });
       
             if (response.ok) {
-                console.log('Email sent successfully');
+                setVisible(true);
+                setMessage("Email sent! Thanks!");
+                setTimeout(() => {
+                    setVisible(false);
+                }, 2000);
             } else {
-                console.error('Error sending email');
+                setVisible(true);
+                setMessage("Something went wrong!");
+                setTimeout(() => {
+                    setVisible(false);
+                }, 2000);
             }
         } catch (error) {
             console.error('Error sending email:', error);
@@ -64,13 +75,14 @@ const ContactPage: FC = ({}) => {
 
     return (
         <>
+            <Toast visible={visible} message={message} />
             <div className="contact-container">
                 <div className="basics">
                     <h1>connect</h1>
                     <div className="subtitle">
-                        <span>embark on an extraordinary</span>
-                        <span>fashion journey. connect</span>
-                        <span>with us.</span>
+                        <span>feeling confused or inspired?</span>
+                        <span>impressed or critisism?</span>
+                        <span>bugs?</span>
                     </div>
                 </div>
                 <div className="contact-form">
