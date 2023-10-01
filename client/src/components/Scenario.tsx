@@ -1,9 +1,11 @@
 'use client'
 
 import { FC } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+
+// auth
+import { useAuth } from "@/context/AuthContext";
 
 // icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -18,11 +20,13 @@ const Scenario: FC<ScenarioProps> = ({ className }) => {
 
     const pathname = usePathname();
 
+    const { user, loading } = useAuth();
+
     const contextTexts: { [key: string]: string } = {
         '/': 'It\'s hot!',
         '/work': 'Portfolio',
         '/human': 'Oh, Me!',
-        '/contact': 'Hyped?'
+        '/contact': 'Hyped?',
     }
 
     const contextText = contextTexts[pathname] || 'It\'s hot!';
@@ -39,7 +43,7 @@ const Scenario: FC<ScenarioProps> = ({ className }) => {
                     </div>
                 </div>
                 <div className="context grid-margin-1">
-                    <p className='context-text'>{contextText}</p>
+                    <p className='context-text'>{!user ? 'Hello!' : contextText}</p>
                 </div>
             </div>
         </>

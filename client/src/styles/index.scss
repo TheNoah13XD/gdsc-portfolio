@@ -19,6 +19,7 @@
 @import 'components/navrail';
 @import 'components/button';
 @import 'components/iconbtn';
+@import 'components/toast';
 
 // utilities
 @import 'base/utilities';
@@ -780,6 +781,99 @@
                 }
             }
 
+        }
+
+        // login & signup
+
+        .auth-page-container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            form {
+                display: flex;
+                flex-direction: column;
+                gap: $base-padding * 5;
+            }
+            .input-flex {
+                display: flex;
+                gap: $base-padding * 4;
+                @include breakpoint('lg') {
+                    gap: $base-padding * 4;
+                }
+                @include breakpoint('xl') {
+                    gap: $base-padding * 6;
+                }
+                position: relative;
+                span {
+                    font-size: 51px;
+                    line-height: normal;
+                    letter-spacing: 2.55px;
+                    text-transform: uppercase;
+                    @include breakpoint('lg') {
+                        font-size: 64px;
+                        letter-spacing: 3.2px;
+                    }
+                    @include breakpoint('xl') {
+                        font-size: 81px;
+                        letter-spacing: 4.162px;
+                    }
+                    font-weight: $black-fw;
+                    color: var(--md-sys-color-on-surface);
+                }
+                .input-container {
+                    position: relative;
+                    width: $base-width * 90;
+                    @include breakpoint('lg') {
+                        width: $base-width * 150;
+                    }
+                    overflow: hidden;
+                    input {
+                        width: 100%;
+                        height: 100%;
+                        border: none;
+                        font-size: 64px;
+                        color: var(--md-sys-color-on-surface);
+                        background: none;
+                        &:focus {
+                            outline: none;
+                            & + label::after {
+                                transform: translateX(0%);
+                            }
+                        }
+                        &:valid {
+                            & + label::after {
+                                transform: translateX(0%);
+                            }
+                        }
+                    }
+                    label {
+                        position: absolute;
+                        bottom: 20px;
+                        left: 0px;
+                        width: 100%;
+                        height: 100%;
+                        pointer-events: none;
+                        border-bottom: 3px solid var(--md-sys-color-on-surface);
+                        &::after {
+                            content: "";
+                            position: absolute;
+                            bottom: 0px;
+                            left: 0px;
+                            width: 100%;
+                            height: 100%;
+                            border-bottom: 3px solid var(--md-sys-color-on-primary-container);
+                            transform: translateX(-100%);
+                            transition: $easing;
+                        }
+                    }
+                }
+            }
+            .auth-controls {
+                display: flex;
+                justify-content: space-between;
+            }
         }
 
         // work page

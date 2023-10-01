@@ -3,17 +3,17 @@ import { useEffect, useState } from "react";
 type UseFetchResult<T> = {
     data: T | null;
     error: Error | null;
-    loading: boolean;
+    fetching: boolean;
 };
 
 const useFetch = <T>(url: string): UseFetchResult<T> => {
     const [data, setData] = useState<T | null>(null);
     const [error, setError] = useState<Error | null>(null);
-    const [loading, setLoading] = useState(true);
+    const [fetching, setFetching] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
-            setLoading(true);
+            setFetching(true);
 
             try {
                 const res = await fetch(url);
@@ -27,14 +27,14 @@ const useFetch = <T>(url: string): UseFetchResult<T> => {
                     setError(new Error("An unknown error occurred."));
                 }
             } finally {
-                setLoading(false);
+                setFetching(false);
             }
         };
 
         fetchData();
     }, [url]);
 
-    return { data, error, loading };
+    return { data, error, fetching };
 };
 
 export default useFetch;

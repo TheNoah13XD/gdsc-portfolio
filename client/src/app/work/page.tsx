@@ -1,18 +1,43 @@
 'use client'
 
-// elements
+// strapi
+import useFetch from "@/lib/strapi"
+
+// auth
+import { useAuth } from "@/context/AuthContext"
+import Auth from "@/components/Auth"
+import { Ring } from '@uiball/loaders'
+
+// components
 import ElementOne from "@/components/elements/ElementOne"
 import ElementTwo from "@/components/elements/ElementTwo"
 import ElementThree from "@/components/elements/ElementThree"
 import ElementFour from "@/components/elements/ElementFour"
-import useFetch from "@/lib/strapi"
 
 const WorkPage = () => {
 
-    const { loading, error, data } = useFetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/works`);
+	const { user, loading } = useAuth();
 
-    if (loading) return <div>Loading...</div>
-    if (error) return <div>Error...</div>
+	if (!user && loading) {
+		return (
+			<div className="display-f w-full h-full justify-c align-i-c">
+				<Ring />
+			</div>
+		)
+	} else if (!user && !loading) {
+		return (
+			<Auth />
+		)
+	}
+
+    const { fetching, error, data } = useFetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/works`);
+
+    if (fetching) return (
+        <div className="display-f w-full h-full justify-c align-i-c">
+            <Ring />
+        </div>
+    )
+    if (error) return <Ring />
 
     return (
         <>

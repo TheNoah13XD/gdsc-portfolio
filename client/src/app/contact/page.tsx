@@ -2,10 +2,29 @@
 
 import { FC, useState } from "react";
 
+// auth
+import { useAuth } from "@/context/AuthContext"
+import Auth from "@/components/Auth"
+import { Ring } from '@uiball/loaders'
+
 // components
 import IconButton from "@/components/ui/IconButton";
 
 const ContactPage: FC = ({}) => {
+
+    const { user, loading } = useAuth();
+
+	if (!user && loading) {
+		return (
+			<div className="display-f w-full h-full justify-c align-i-c">
+				<Ring />
+			</div>
+		)
+	} else if (!user && !loading) {
+		return (
+			<Auth />
+		)
+	}
 
     const [form, setForm] = useState({
         name: "",

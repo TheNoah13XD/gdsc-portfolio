@@ -1,0 +1,23 @@
+@mixin toast {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    font-weight: $medium-fw;
+    color: var(--md-sys-color-on-primary-container);
+    background: var(--md-sys-color-primary-container);
+    border-radius: $base-border-radius;
+    padding: $base-padding * 4 $base-padding * 40 $base-padding * 4 $base-padding * 4;
+    margin: 0 $base-margin * 5 $base-margin * 5 0;
+    transition: $easing;
+    -webkit-transition: $easing;
+}
+
+.toast {
+    @include toast();
+    transform: translateX(0%);
+}
+
+.toast-hidden {
+    @include toast();
+    transform: translateX(120%);
+}

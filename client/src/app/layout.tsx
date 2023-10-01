@@ -4,6 +4,9 @@ import { StrictMode } from 'react'
 import React from 'react';
 import { usePathname } from 'next/navigation';
 
+// auth
+import { AuthContextProvider } from '@/context/AuthContext';
+
 // styles
 import '@/styles/index.css'
 
@@ -24,37 +27,39 @@ export default function RootLayout({
 	children: React.ReactNode
 }) {
 	const pathname = usePathname();
-	const routeConfig = ['/', '/work', '/human', '/contact'];
+	const routeConfig = ['/', '/work', '/human', '/contact', '/login', '/signup'];
 	const hasScenario = routeConfig.includes(pathname);
 
 	return (
-		<html lang="en">
-			<head>
-				<title>.broken - portfolio</title>
-				<meta name='description' content='developed by .noah' />
-			</head>
-			<body className='container display-f'>
+		<AuthContextProvider>
+			<html lang="en">
+				<head>
+					<title>.broken - portfolio</title>
+					<meta name='description' content='developed by .noah' />
+				</head>
+				<body className='container display-f'>
 
-				<StrictMode>
-					<Nav />
-					
-					<Grid className='w-full'>
-						{hasScenario ? (
-							<>
-								<Col col='2' extraLMargin className='z-2 overflow-h'>
-									<Scenario />
-								</Col>
-							</>
-						) : null}
-						<Col col={hasScenario ? '10' : '12'} extraLMargin className='overflow-h'>
-							<Scene className='overflow-s'>
-								{children}
-							</Scene>
-						</Col>
-					</Grid>
-				</StrictMode>
+					<StrictMode>
+						<Nav />
+						
+						<Grid className='w-full'>
+							{hasScenario ? (
+								<>
+									<Col col='2' extraLMargin className='z-2 overflow-h'>
+										<Scenario />
+									</Col>
+								</>
+							) : null}
+							<Col col={hasScenario ? '10' : '12'} extraLMargin className='overflow-h'>
+								<Scene className='overflow-s'>
+									{children}
+								</Scene>
+							</Col>
+						</Grid>
+					</StrictMode>
 
-			</body>
-		</html>
+				</body>
+			</html>
+		</AuthContextProvider>
 	)
 }

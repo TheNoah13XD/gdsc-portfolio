@@ -19,7 +19,7 @@ const Button: FC<ButtonProps> = ({ children, disabled, className, type = 'filled
 
     return (
         <div className={className}>
-            <button className={buttonClassName} disabled={disabled}>
+            <button className={buttonClassName} disabled={disabled} type="button">
                 {iconElement}
                 <span className="btn-label">{children}</span>
             </button>
